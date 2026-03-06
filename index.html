@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #87CEEB;
+            text-align: center;
+            color: #0f172a;
+        }
+
+        /* OPENING */
+        .opening {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: #87CEEB;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            background: url("https://images.unsplash.com/photo-1529636798458-92182e662485") center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .hero h1,
+        .hero p,
+        .countdown {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* SALAM ARAB */
+        .arab {
+            font-size: 32px;
+            direction: rtl;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        /* MENU */
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .menu {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            background: white;
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: black;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* SECTION */
+        .section {
+            padding: 70px 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px auto;
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        /* MEMPELAI */
+        .mempelai {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .mempelai-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 260px;
+        }
+
+        /* COUNTDOWN */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        /* GALERI */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .gallery-item img {
+            width: 250px;
+            height: 180px;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.2);
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px;
+        }
+
+        #detailGaleri img {
+            width: 250px;
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        /* FORM */
+        input,
+        textarea {
+            width: 90%;
+            max-width: 400px;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #1e3a8a;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-bottom {
+            margin-top: 25px;
+            font-size: 14px;
+        }
+
+        /* MUSIC */
+        .music {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2563eb;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* DETAIL ACARA */
+        .tanggal-acara {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #1e3a8a;
+        }
+
+        .acara-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .acara-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 250px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .acara-card h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .acara-card p {
+            margin: 5px 0;
+        }
+
+        /* MAPS */
+        .maps {
+            margin-top: 30px;
+        }
+
+        .maps iframe {
+            width: 90%;
+            max-width: 700px;
+            height: 350px;
+            border: 0;
+            border-radius: 10px;
+        }
+
+        /* PERAPIHAN JARAK TULISAN */
+        h1,
+        h2,
+        h3 {
+            margin-bottom: 15px;
+        }
+
+        p {
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .section h2 {
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .salam {
+            padding: 60px 20px;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        /* UCAPAN TAMU - RATA KIRI */
+        #daftarUcapan .card {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        #daftarUcapan .card-header {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+            width: 100%;
+        }
+
+        #daftarUcapan .card-header b,
+        #daftarUcapan .card-header small {
+            text-align: left;
+        }
+
+        #daftarUcapan .card p {
+            margin-top: 5px;
+            width: 100%;
+        }
+
+        /* RESPONSIVE */
+        @media screen and (max-width:768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .arab {
+                font-size: 24px;
+                padding: 0 10px;
+            }
+
+            .countdown {
+                flex-wrap: wrap;
+                gap: 10px;
+                font-size: 16px;
+            }
+
+            .mempelai-card {
+                width: 90%;
+            }
+
+            .acara-card {
+                width: 90%;
+            }
+
+            .gallery-item img {
+                width: 90vw;
+                height: 180px;
+            }
+
+            #detailGaleri img {
+                width: 90%;
+            }
+
+            .hadiah-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hadiah-card {
+                width: 90%;
+            }
+
+            .maps iframe {
+                width: 95%;
+                height: 250px;
+            }
+
+            .menu {
+                right: 10px;
+            }
+        }
+
+        @media screen and (max-width:400px) {
+            .hero h1 {
+                font-size: 26px;
+            }
+
+            .countdown {
+                font-size: 14px;
+            }
+
+            button {
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- OPENING -->
+    <div class="opening" id="opening">
+        <h2>Undangan Pernikahan</h2>
+        <p>Kepada Tamu Undangan</p>
+        <br>
+        <button onclick="bukaUndangan()">Buka Undangan</button>
+    </div>
+
+    <!-- MENU -->
+    <div class="menu-btn" onclick="toggleMenu()">⋮</div>
+    <div class="menu" id="menu">
+        <a href="#home">Home</a>
+        <a href="#mempelai">Mempelai</a>
+        <a href="#acara">Acara</a>
+        <a href="#galeri">Galeri</a>
+        <a href="#ucapan">Ucapan</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <h1>Lita & Riski</h1>
+        <p>12 Desember 2026</p>
+        <div class="countdown">
+            <div><span id="hari"></span><br>Hari</div>
+            <div><span id="jam"></span><br>Jam</div>
+            <div><span id="menit"></span><br>Menit</div>
+            <div><span id="detik"></span><br>Detik</div>
+        </div>
+    </section>
+
+    <!-- SALAM -->
+    <section class="salam">
+        <div class="arab">اَلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</div>
+        <p>Dengan Memohon Rahmat dan Ridho Allah SWT,
+            Kami Mengundang Bapak/Ibu/Saudara/i Untuk Hadir Pada Pernikahan Kami</p>
+    </section>
+
+    <!-- MEMPELAI -->
+    <section class="section" id="mempelai">
+        <div class="mempelai">
+            <div class="mempelai-card">
+                <h3>Lita Aulia</h3>
+                <p>Putri ke-2 dari Bapak Ahmad & Ibu Dewi</p>
+            </div>
+            <div class="mempelai-card">
+                <h3>Ahmad Riski</h3>
+                <p>Putra ke-1 dari Bapak Warnoto & Ibu Tuti</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACARA -->
+    <section class="section" id="acara">
+        <h2>Detail Acara</h2>
+        <div class="tanggal-acara">Sabtu, 12 Desember 2026</div>
+        <div class="acara-container">
+            <div class="acara-card">
+                <h3>Akad Nikah</h3>
+                <p>09:00 WIB</p>
+                <p>Tempat Mempelai Wanita</p>
+            </div>
+            <div class="acara-card">
+                <h3>Resepsi</h3>
+                <p>12:00 WIB - Selesai</p>
+                <p>Tempat Mempelai Wanita</p>
+            </div>
+        </div>
+        <div class="maps">
+            <h3>Lokasi Acara</h3>
+            <iframe src="https://www.google.com/maps?q=Bandung&output=embed"></iframe>
+        </div>
+    </section>
+
+    <!-- GALERI -->
+    <section class="section" id="galeri">
+        <h2>Galeri</h2>
+        <div class="gallery">
+            <div class="gallery-item" onclick="toggleGaleri('prewedding')"><img src="https://picsum.photos/300?1">
+                <div class="overlay">Prewedding</div>
+            </div>
+            <div class="gallery-item" onclick="toggleGaleri('bahagia')"><img src="https://picsum.photos/300?2">
+                <div class="overlay">Momen Bahagia</div>
+            </div>
+            <div class="gallery-item" onclick="toggleGaleri('kebersamaan')"><img src="https://picsum.photos/300?3">
+                <div class="overlay">Kebersamaan</div>
+            </div>
+        </div>
+        <br><br>
+        <div id="detailGaleri"></div>
+    </section>
+
+    <!-- HADIAH -->
+    <section class="section" id="hadiah">
+        <h2>Kirim Hadiah</h2>
+        <div class="hadiah-container" style="display:flex;justify-content:center;gap:20px;">
+            <div class="hadiah-card">
+                <h3>Bank BCA</h3>
+                <p id="rekening">1234567890</p>
+                <p>a.n Lita Aulia</p>
+                <button onclick="copyRekening()">Salin Rekening</button>
+            </div>
+            <div class="hadiah-card">
+                <h3>DANA</h3>
+                <p id="dana">081234567890</p>
+                <p>a.n Lita Aulia</p>
+                <button onclick="copyDana()">Salin Nomor</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- UCAPAN -->
+    <section class="section" id="ucapan">
+        <h2>Ucapan & Doa</h2>
+        <div class="card">
+            <form id="formUcapan">
+                <input type="text" id="nama" placeholder="Nama Anda" required>
+                <textarea id="pesan" rows="4" placeholder="Ucapan & doa..." required></textarea>
+                <br>
+                <button type="submit">Kirim</button>
+            </form>
+        </div>
+        <h3>Ucapan Tamu</h3>
+        <div id="daftarUcapan"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <h3>Terima Kasih</h3>
+        <p>Merupakan suatu kehormatan bagi kami apabila
+            Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
+        <p><b>Lita & Riski</b></p>
+        <div class="footer-bottom">© 2026 Undangan Pernikahan</div>
+    </footer>
+
+    <!-- MUSIC -->
+    <div class="music" onclick="toggleMusic()">♫</div>
+    <audio id="musik" loop>
+        <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5d6cbe9e43.mp3">
+    </audio>
+
+    <script>
+        /* OPENING */
+        function bukaUndangan() {
+            document.getElementById("opening").style.display = "none";
+            musik.play();
+        }
+
+        /* MENU */
+        function toggleMenu() {
+            let menu = document.getElementById("menu");
+            menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+        }
+
+        /* MUSIC */
+        let musik = document.getElementById("musik");
+        function toggleMusic() { musik.paused ? musik.play() : musik.pause(); }
+
+        /* COUNTDOWN */
+        let tanggal = new Date("Dec 12, 2026 09:00:00").getTime();
+        setInterval(function () {
+            let now = new Date().getTime();
+            let jarak = tanggal - now;
+            document.getElementById("hari").innerHTML = Math.floor(jarak / (1000 * 60 * 60 * 24));
+            document.getElementById("jam").innerHTML = Math.floor((jarak % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("menit").innerHTML = Math.floor((jarak % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("detik").innerHTML = Math.floor((jarak % (1000 * 60)) / 1000);
+        }, 1000);
+
+        /* GALERI */
+        /* GALERI */
+        let aktif = null;
+        function toggleGaleri(kategori) {
+            let galeri = document.getElementById("detailGaleri");
+            if (aktif === kategori) {
+                galeri.innerHTML = "";
+                aktif = null;
+                return;
+            }
+            aktif = kategori;
+            galeri.innerHTML = "";
+
+            let foto = {
+                prewedding: [
+                    "https://picsum.photos/400?1",
+                    "https://picsum.photos/400?2",
+                    "https://picsum.photos/400?3"
+                ],
+                bahagia: [
+                    "https://picsum.photos/400?4",
+                    "https://picsum.photos/400?5",
+                    "https://picsum.photos/400?6"
+                ],
+                kebersamaan: [
+                    "https://picsum.photos/400?7",
+                    "https://picsum.photos/400?8",
+                    "https://picsum.photos/400?9"
+                ]
+            };
+
+            foto[kategori].forEach(src => {
+                let img = document.createElement("img");
+                img.src = src;
+                galeri.appendChild(img);
+            });
+        }
+
+        /* COPY REKENING & DANA */
+        function copyRekening() {
+            navigator.clipboard.writeText(document.getElementById("rekening").innerText);
+            alert("Rekening disalin!");
+        }
+        function copyDana() {
+            navigator.clipboard.writeText(document.getElementById("dana").innerText);
+            alert("Nomor DANA disalin!");
+        }
+
+        /* UCAPAN */
+        let form = document.getElementById("formUcapan");
+        let daftar = document.getElementById("daftarUcapan");
+        let ucapan = JSON.parse(localStorage.getItem("ucapan")) || [];
+
+        function tampilUcapan() {
+            daftar.innerHTML = "";
+            const now = new Date();
+            ucapan.forEach(data => {
+                let waktuData = new Date(data.waktu);
+                let selisih = Math.floor((now - waktuData) / 60 / 1000);
+                let waktuTampil = "";
+                if (selisih < 1) waktuTampil = "Baru saja";
+                else if (selisih < 60) waktuTampil = selisih + " menit yang lalu";
+                else if (selisih < 1440) waktuTampil = Math.floor(selisih / 60) + " jam yang lalu";
+                else waktuTampil = waktuData.toLocaleString("id-ID", { day: "2-digit", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
+                let div = document.createElement("div");
+                div.className = "card";
+                div.innerHTML = `<div class="card-header"><b>${data.nama}</b><small style="color:gray">${waktuTampil}</small></div><p>${data.pesan}</p>`;
+                daftar.appendChild(div);
+            });
+        }
+        tampilUcapan();
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            let nama = document.getElementById("nama").value;
+            let pesan = document.getElementById("pesan").value;
+            ucapan.push({ nama, pesan, waktu: new Date().toISOString() });
+            localStorage.setItem("ucapan", JSON.stringify(ucapan));
+            tampilUcapan();
+            form.reset();
+        });
+    </script>
+
+</body>
+
+</html>
